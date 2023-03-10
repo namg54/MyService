@@ -1,0 +1,7 @@
+# MyService
+Hello
+In this Sample I want Show to you How Create A Web Service And Use Generic Queue For Recieve Data and
+Send To Db 
+We Can See too How To Use in List For This Sample
+Dont Forget For Run both Project Rc In Solation And Enable Run both Project.
+Good Luck.
