@@ -10,6 +10,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\
 		{DFCE8795-18D5-4962-9852-26DE68D067A8} = {DFCE8795-18D5-4962-9852-26DE68D067A8}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCE55068-8380-47BC-A806-AAEEE178968A}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\NAMG\Desktop\ReadMe.txt = C:\Users\NAMG\Desktop\ReadMe.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
