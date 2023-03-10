@@ -18,15 +18,13 @@ namespace MyService
     public class TestService : System.Web.Services.WebService
     {
         [WebMethod]
-        public List<TransferTest1> queueTest()
+        public void queueTest()
         {
-            #region New Ado.net
-            Thread.Sleep(10*60*1000);
-
+            Thread.Sleep(10000);
             TransferTest1 t1 = new TransferTest1();
             List<TransferTest1> tt1 = new List<TransferTest1>();
-
-            using (SqlConnection connection = new SqlConnection("Data source=.;Initial Catalog=Niloofartest;Integrated Security=True"))
+            var queue = new Queue<TransferTest1>();
+            using (SqlConnection connection = new SqlConnection("Data source=.;Initial Catalog=Test;Integrated Security=True"))
             {
                 SqlCommand command = new SqlCommand("select top(5) * from table_1 where id=1;update top (5)  table_1 set id=4 where id=1;", connection);
                 connection.Open();
@@ -39,6 +37,8 @@ namespace MyService
                         t1.Id = (int)reader["ID"];
                         t1.Name = (string)reader["Name"];
                         tt1.Add(t1);
+                        queue.Enqueue(t1);
+
                     }
                 }
                 else
@@ -49,32 +49,25 @@ namespace MyService
                 //return tt1;
             }
             SqlConnection connection2 = new SqlConnection("Data source=.;Initial Catalog=Niloofartest;Integrated Security=True");
-            //connection.Open();
-
             if (tt1.Count != 0)
             {
 
-                for (int i = 0; i < tt1.Count; i++)
+                //for (int i = 0; i < tt1.Count; i++)
+                //{
+                foreach (var item in queue)
                 {
-                    var x = tt1[i];
+                    //var x = tt1[i];
                     string query = "INSERT INTO Table_2 (id, name) VALUES(@id,@name)";
                     SqlCommand cmd = new SqlCommand(query, connection2);
-                    cmd.Parameters.AddWithValue("id", x.Id);
-                    cmd.Parameters.AddWithValue("name", x.Name);
+                    cmd.Parameters.AddWithValue("id", item.Id);
+                    cmd.Parameters.AddWithValue("name", item.Name);
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
-
-
-
                 }
-
-
-
+            queue.Clear();
 
             }
-            return tt1;
-            #endregion
 
         }
     }
